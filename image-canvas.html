@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style type="text/css">
+            #canvas{
+                border:1px solid red;
+                width:300px;
+                height:300px;
+            }
+            #img>img{
+                border:1px solid pink;
+                width:400px;
+                height:400px;
+            }
+        </style>
+    </head>
+    <body>
+        <input type="file" onchange="getFile(this.files)" />
+        <div>
+            <canvas id="canvas"></canvas>
+        </div>
+        <div id="img">
+            <img src="" alt="显示图片" />
+        </div>
+    </body>
+    <script type="text/javascript">
+
+        var getFile = function(file){
+            var inputfile = file[0];
+            fileToCanvas(inputfile);
+            fileToImage(inputfile);
+        }
+
+        function fileToImage(file){
+            var reader = new FileReader();
+            reader.readAsDataURL(file);//读取图像文件 result 为 DataURL, DataURL 可直接 赋值给 img.src
+            reader.onload = function(event){
+                var img = document.getElementById("img").children[0];
+                img.src = event.target.result;//base64
+            }
+        }
+
+
+
+        function fileToCanvas(file){
+            var reader = new FileReader();
+            reader.readAsDataURL(file);//读取图像文件 result 为 DataURL, DataURL 可直接 赋值给 img.src
+            reader.onload = function(event){
+                var image = new Image();
+                image.src = event.target.result;
+                image.onload = function(){
+                    var canvas = document.getElementById("canvas");
+                    var imageCanvas = canvas.getContext("2d");
+                    imageCanvas.drawImage(image, 0, 0,300,300);
+                    canvasToImage(canvas);
+                }
+            }
+        }
+
+
+        function canvasToImage(canvas){
+            var image = new Image();
+            image.src = canvas.toDataURL("image/png");//base64
+        }
+        
+        
+    </script>
+</html>
