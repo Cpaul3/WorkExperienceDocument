@@ -42,7 +42,6 @@
         }
 
 
-
         function fileToCanvas(file){
             var reader = new FileReader();
             reader.readAsDataURL(file);//读取图像文件 result 为 DataURL, DataURL 可直接 赋值给 img.src
@@ -62,8 +61,6 @@
         function canvasToImage(canvas){
             var image = new Image();
             image.src = canvas.toDataURL("image/png");//base64
-        }
-        
-        
+        }        
     </script>
 </html>
