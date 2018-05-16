@@ -1,0 +1,90 @@
+<tbody>
+    <tr class="odd gradeX" ng-repeat="item in vm.items">
+        <td ng-bind="item.productItem.seq" rowspan="{{item.productItem.rowspan}}"  ng-hide="!item.productItem.rowspan"></td>
+        <td ng-bind="item.productItem.brandName" rowspan="{{item.productItem.rowspan}}"  ng-hide="!item.productItem.rowspan"></td>
+        <td ng-bind="item.productItem.productName"  rowspan="{{item.productItem.rowspan}}"  ng-hide="!item.productItem.rowspan"></td>
+        <!-- 规格 -->
+        <td ng-bind="item.productItem.productInfoSpecName" rowspan="{{item.productItem.rowspan}}"  ng-hide="!item.productItem.rowspan"></td>
+        <td ng-bind="item.cityName" rowspan="{{item.productItem.rowspan}}"  ng-hide="!item.productItem.rowspan"></td>
+        <td rowspan="{{item.productItem.rowspan}}"  ng-hide="!item.productItem.rowspan">
+            <span class="label label-sm label-warning" ng-if="item.productItem.state==0"> 下架 </span>
+            <span class="label label-sm label-success" ng-if="item.productItem.state==2"> 上架 </span>
+            <span class="label label-sm label-warning" ng-if="item.productItem.state==1">作废</span>
+        </td>
+        <!-- part in item.warehouseStoreList 此处开始为列表 -->
+        <td ng-bind="item.warehouseName"></td>
+        <td ng-bind="item.ownerName"></td>
+        <td>
+            <span ng-if="item.ownerType == 0">酒批</span>
+            <span ng-if="item.ownerType == 1">合作商</span>
+            <span ng-if="item.ownerType == 2">经销商</span>
+        </td>
+        <td><span class="label label-sm label-primary">{{item.redisTotalCount}}</span></td>
+        <td ><span class="label label-sm label-primary">{{item.saleWarehouseTotalCount}}</span></td>
+        <td ><span class="label label-sm label-primary">{{item.warehouseTotalCount}}</span></td>
+        <td ><a
+            ui-sref="warehouseStock_detail({productSkuId:item.productSkuId,id:item.id,productName:item.productName,productInfoSpecName:item.productInfoSpecName,cityName:item.cityName,ownerName:item.ownerName})"
+            class="btn btn-xs default btn-editable"> <i
+                class="fa fa-file-text-o"></i> 库存明细
+        </a> <a ng-click="editSkuStock(item)"
+            class="btn btn-xs default btn-editable"> <i
+                class="fa fa-file-text-o"></i> 新增库存
+        </a>
+        <a ng-click="editSkuStockByStoreId(item)"
+            class="btn btn-xs default btn-editable"> <i
+                class="fa fa-file-text-o"></i> 同步redis库存
+        </a></td>
+        <!-- 操作 -->
+        
+    </tr>
+</tbody>
+
+
+js文件
+
+$scope.findList = function () {
+    $http.post('store/findWarehouseProductWarehouseStoreList/' + $scope.vm.pages.index + '.action', $scope.vo)
+        .success(function (data) {
+            // 不显示加载
+            Metronic.unblockUI();
+            if (data.result === 'success') {
+                var trItems = [];
+                var seq = 0;//表示第几行
+                data.datas.dataList.forEach(function (productItem) {
+                    seq++;
+                    if (productItem.warehouseStoreList.length > 0) {
+                        productItem.warehouseStoreList.forEach(function (part) {
+                            part.brandName = productItem.brandName;
+                            part.state = productItem.state;
+                            part.productSkuId = productItem.productSkuId;
+                            part.packageName = productItem.packageName;
+                            part.unitName = productItem.unitName;
+                            part.productInfoSpecName = productItem.productInfoSpecName;
+                            part.productName = productItem.productName;
+                            part.productState = productItem.productState;
+                            part.state = productItem.state;
+                            trItems.push(part);
+                            if (!productItem.rowspan) {
+                                productItem.rowspan = 1;
+                                part.productItem = productItem;
+                            } else {
+                                productItem.rowspan = productItem.rowspan + 1;
+                            }
+                            productItem.seq = ($scope.vm.pages.index - 1) * $scope.vm.pages.itemsPerPage + seq;
+                        })
+                    } else {
+                        trItems.push({
+                            "productItem": productItem
+                        });
+                        productItem.rowspan = 1;
+                        productItem.seq = ($scope.vm.pages.index - 1) * $scope.vm.pages.itemsPerPage + seq;
+                    }
+                    productItem.seq = ($scope.vm.pages.index - 1) * $scope.vm.pages.itemsPerPage + seq;
+                });
+                $scope.vm.items = trItems;
+                $scope.vm.pages.totalResult = data.datas.pager.recordCount;
+                $scope.vm.pages.totalPage = data.datas.pager.totalPage;
+            }
+        })
+};
+$scope.findList();
