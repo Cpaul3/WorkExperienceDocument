@@ -17,4 +17,6 @@ React组件生命周期详解：https://juejin.im/post/5b077f04f265da0dc073caa6?
 
 三元运算符： x ? : y 相当于 x ? x : y 判断x是否有值
 
+angular遍历map：ng-repeat = "(key,value) in dataList"
+
 clearTimeout：一直觉得没必要用这个，反正一次执行就失效了嘛，但是在使用setTimeout时和setInterval一样，也要clear,假如有个函数一开始想要在30秒后执行，然后，在还没有30秒的时候，由于用户做了其他操作，需要取消那个30秒后的操作，你怎么办？当然是清掉她啊，所以clearTimeout不是必须的，但却是安全保障。当然比如0秒后执行，clear就没必要了
