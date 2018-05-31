@@ -20,3 +20,38 @@ React组件生命周期详解：https://juejin.im/post/5b077f04f265da0dc073caa6?
 angular遍历map：ng-repeat = "(key,value) in dataList"
 
 clearTimeout：一直觉得没必要用这个，反正一次执行就失效了嘛，但是在使用setTimeout时和setInterval一样，也要clear,假如有个函数一开始想要在30秒后执行，然后，在还没有30秒的时候，由于用户做了其他操作，需要取消那个30秒后的操作，你怎么办？当然是清掉她啊，所以clearTimeout不是必须的，但却是安全保障。当然比如0秒后执行，clear就没必要了
+
+
+简谈angular的双向绑定机制:
+脏检查
+
+
+谈谈对angular中的$parse的理解-以demo为例
+    var obj = {user:{name:'angular1'}};
+
+    //如何获取obj对象中的'angular1'?
+    //方法一、（低级用法）
+    console.log(obj.user.name);//angular1
+    //方法二、（高级用法）
+    var getter = $parse('user.name');
+    var a = getter(obj);
+    console.log(a);//angular1
+
+
+    //如何改变obj对象中的'angular1'为'jquery'?
+
+    //方法一、（低级用法）
+    obj.user.name = 'jquery';
+    console.log(obj.user.name);//jquery
+    //方法二、（高级用法）
+    var setter = $parse('user.name').assign;
+    var b = setter(obj,'jquery');
+    console.log(b);//jquery
+
+
+    //替换功能
+    var obj2 = {user:{name:'local'}};
+
+    var getter2 = $parse('user.name');
+    var c = getter2(obj,obj2);
+    console.log(c);//local
