@@ -22,8 +22,8 @@ React组件生命周期详解：https://juejin.im/post/5b077f04f265da0dc073caa6?
     dir -> 查看d盘下所有目录
     cd A -> 切换到d盘的A文件夹下
 
-win10安装node等软件时报2503,2502错误，怎么解决？
-选中win键,单击鼠标右键,选中“命令提示符（管理员）”，在dos命令行中键入“msiexec /package D:\00\NodeJS\node-v10.3.0-x64.msi”
+win10安装node等msi软件时报2503,2502错误，怎么解决？
+选中win键,单击鼠标右键,选中“命令提示符（管理员）”，在dos命令行中键入“msiexec /package msi文件路径”，如“msiexec /package D:\00\NodeJS\node-v10.3.0-x64.msi”
 
 clearTimeout：一直觉得没必要用这个，反正一次执行就失效了嘛，但是在使用setTimeout时和setInterval一样，也要clear,假如有个函数一开始想要在30秒后执行，然后，在还没有30秒的时候，由于用户做了其他操作，需要取消那个30秒后的操作，你怎么办？当然是清掉她啊，所以clearTimeout不是必须的，但却是安全保障。当然比如0秒后执行，clear就没必要了
 
