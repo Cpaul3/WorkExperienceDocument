@@ -40,8 +40,10 @@ angular的$eval：$eval是为了让$parse在scope中使用更方便的语法糖
 
 谈谈对angular中的$parse的理解-以demo为例 参考链接：https://www.cnblogs.com/HeJason/p/5493357.html
     $parse 服务 该服务即可用来根据作用域计算AngularJS表达式的值,又可以在某个作用域上设置值,
+    
+    
     var obj = {user:{name:'angular1'}};
-
+    
     //如何获取obj对象中的'angular1'?
     //方法一、（低级用法）
     console.log(obj.user.name);//angular1
