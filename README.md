@@ -16,7 +16,8 @@ React组件生命周期详解：https://juejin.im/post/5b077f04f265da0dc073caa6?
 三元运算符： x ? : y 相当于 x ? x : y 判断x是否有值
 
 经常用windows的dos命令行，下面我将列举常用命令行
-    var obj = {user:{name:'angular1'}};
+    
+	var obj = {user:{name:'angular1'}};
     where node ->查看node的安装位置
     D: -> 切换到D盘
     dir -> 查看d盘下所有目录
