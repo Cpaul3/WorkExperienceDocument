@@ -9,6 +9,10 @@ gitHub反应太慢
 
 ES6学习地址：http://es6.ruanyifeng.com/
 
+ES6箭头函数：https://segmentfault.com/p/1210000009243551/read
+
+Flexbox布局：https://blog.csdn.net/hai_qing_xu_kong/article/details/72672404
+
 如何利用 Chrome 浏览器实现滚动截屏?https://www.imooc.com/article/30185
 
 React组件生命周期详解：https://juejin.im/post/5b077f04f265da0dc073caa6?utm_medium=hao.caibaojian.com&utm_source=hao.caibaojian.com
