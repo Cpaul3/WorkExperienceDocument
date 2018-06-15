@@ -99,3 +99,8 @@ angular的$eval：$eval是为了让$parse在scope中使用更方便的语法糖
     
     
     
+    
+微信小程序：
+微信小程序做到后面时，功能越来越多，页面越来越复杂，此时，不免会用到自定义组件，提取公用的代码出来，此时，可能涉及到父子组件之间的一些事件交互
+组件之间的通信：https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/events.html
+    
