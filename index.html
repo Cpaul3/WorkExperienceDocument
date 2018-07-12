@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body ng-controller="myController">
+        <input type="file" id="myFile" upload upload-file="uploadFile"/>
+        <button ng-click="saveFile()">保存按钮</button>
+
+        <script type="text/javascript" src="angular.min.js"></script>
+        <script type="text/javascript">
+
+        var myApp = angular.module('myApp',[])
+
+
+        .directive('upload', function () {
+            return {
+                scope: {
+                    uploadFile: '='
+                },
+                link: function (scope, element, attrs) {
+                    element.bind('change', function (event) {
+                        var file = event.target.files;
+                        scope.uploadFile = file ? file : undefined;
+                        scope.$apply();
+                    });
+                }
+            }
+        })
+
+        .controller('myController',['$scope',function($scope){
+            // 在controllerjs中获取file文件
+            $scope.saveFile = function(){
+                console.log($scope.uploadFile);
+            }
+            
+        }])
+                 
+        </script>
+    </body>
+
+</html>
